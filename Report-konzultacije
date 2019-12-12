@@ -1,0 +1,17 @@
+- pohvale: smislena baza, razuman opseg projekta
+
+- pitanja:
+1. Koji tip podataka staviti za rezultat?
+Kod pohrane rezultata imamo vise mogucih oblika koje treba pohraniti (za trcanje: h,min,s te za bacanje i skokove: m,cm) pa je najbolje staviti tip podataka decimal te napraviti funkciju koja ce rezultate prilikom ubacivanja pretvoriti sve u sekunde i centimetre i prilikom ispisivanja vratiti u izvorni format.
+* Prilikom ispisa rezultata treba paziti za koju disciplinu ispisujemo rezultat kako bi ga tocno pretvorili, tj. koristili pravu funkciju za pretvaranje.
+
+2.  Je li potrebno kreirati vlastiti tip podataka kune?
+Moze se ali i ne mora, tj. mozemo preskociti taj dio da si ne kompliciramo bezveze stvari. Kada bi bila rijec o međunarodnom natjecanju onda bi bilo pozeljno to napraviti (* mozemo spomenuti u prezentaciji kao poboljsanje naseg sustava).
+
+3. Unos trenutnog datuma u prijavu natjecatelja
+Za stupac datum_prijave staviti tip podataka date/timestamp (default) i kod insertanja koristiti funkciju current_date().
+
+4. Ispis rezultata na kraju natjecanja
+Ne bi bilo lose koristiti materijalizirani pogled jer se tablica rezultata ne bi trebala mijenjati. Materijalizirani pogled sprema podatke dobivene selectom u fizicku tablicu, a obican pogled svaki put izvrsava zadani select.
+
+Pitala sam jos neke stvari za procedure, ali to cemo uzivo.
