@@ -24,7 +24,7 @@ CREATE TABLE disciplina_natjecanja(
 );
 
 CREATE TABLE natjecatelj(
-	natjecatelj_id INT AUTO_INCREMENT,
+    natjecatelj_id INT AUTO_INCREMENT,
     ime VARCHAR(30) NOT NULL,
     prezime VARCHAR(30) NOT NULL,
     spol CHAR(1) NOT NULL,                   
