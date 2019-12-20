@@ -1,0 +1,31 @@
+KAKO DOHVATITI VRIJEDNOST FOREIGN KEY-a I UBACITI U NEKU TABLICU?
+1. last_insert_id() (http://www.mysqltutorial.org/mysql-last_insert_id.aspx)
+2. select (https://dba.stackexchange.com/questions/46410/how-do-i-insert-a-row-which-contains-a-foreign-key))
+
+
+Popis procedura po relacijama (tablicama): 
+
+- NATJECANJE + DISCIPLINA_NATJECANJA -
+	1. Procedura koja prvo ubacuje podatke u tablicu natjecanje pa nakon toga u tablicu disciplina_natjecanja.
+	   Id natjecanja dohvacamo pomocu funkcije last_insert_id() (primjer pod c) : http://www.mysqltutorial.org/mysql-last_insert_id.aspx), a id discipline
+	   dohvatimo pomocu select-a (npr. SELECT disciplina_id FROM discplina WHERE naziv_discipline = "100m").
+
+  2. Procedura koja provjerava ako za neku disciplinu postoji manje od troje prijavljenih natjecatelja (broj stavki sa tom discipliom < 3) i brise tu disciplinu iz
+	   tablice disciplina_natjecanja. ??
+
+- NATJECATELJ + PRIJAVA-
+	3. Procedura koja provjerava ako vec postoji neki natjecatelj npr. Ivo Ivić sa OIB-om 5370468952:
+		- ako ne postoji ubaci ga kao novog natjecatelja u tablicu natjecatelj i nakon toga stvori njegovu prijavu za natjecanje npr. "Zimski miting Pula"
+		  (natjecatelj_id dohvati sa funkcijom last_insert_id())
+		- ako je natjecatelj vec u bazi dohvati njegov id pomocu select-a i stvori njegovu prijavu za natjecanje npr. "Zimski miting Pula"
+
+- STAVKE_PRIJAVE
+	4. Procedura koja provjerava ako vec postoje dvije stavke za neku prijavu, ako vec postoje ispisi error "Natjecatelj je vec prijavljen na dvije discipline!", 
+	   ako prijava ima manje od dvije stavke ubaci novu stavku.  
+
+- REZULTATI -
+	5. Procedura koja ubacuje podatke u tablicu rezultat, kod unosa rezultata poziva funkciju za pretvaranje rezultata.
+	   (id prijave, natjecanja i discipline dohvati pomocu select-a)
+	
+ -> ROK 23.12. ?
+ *To je okviran popis procedura, treba ih prvo isprobati pa vidjeti sta bi nam jos trebalo.
