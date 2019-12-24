@@ -1,0 +1,23 @@
+Triggeri:
+1. Trigger koji se okine nakon svakog inserta u tabici stavke_prijave, trebao bi za svakog prijavljenog atleticara na jednom natjecanju
+   izracunat kolika mu je ukupna kotizacija, znaci treba zbrojit kotizaciju za sve discipline na koje se natjecatelj prijavio
+   i upisat u tablicu prijava, stupac iznos_kotizacije.
+
+-Iskreno ne znam gdje bi nam jos trebali triggeri, ako imas ideju predlozi...
+
+Funkcije:
+* Pogledaj izvjestaj sa konzultacija, pitanje vezano za rezultate, ako ti nesto nije jasno javi...
+Ja sam ovo okvirno napisala, mozda sam u krivu haha ti vidi kad budes radio kako to funkcionira i ako je okej tako. 
+Mozda ce bit problem sa tipom podataka za stupce u koje se pohranjuju rezultati, stavljeno je decimal(5) jer je tako
+profesor rekao da misli da ce bit okej...
+
+
+Treba napravit funkcije za pretvaranje upisanog rezultata u oblik koji mozemo spremit u bazu. Mislim da ce bit dosta
+4 funkcije: 
+	1. rezultat za skokove/bacanja pretvori iz metra u centimetre 
+	2. rezultat za skokove/bacanja pretvori iz centimetra u metre
+	3. sve rezultate za trcanje pretvori po meni u stotinke jer je to najmanja jedinica mjerenja
+	   (najveca mjera je sat za npr neki maraton, a najmanja stotinka)
+	4. rezultat za trcanje pohranjen u bazi pretvara u izvorni oblik koji je organizator upisao
+
+
