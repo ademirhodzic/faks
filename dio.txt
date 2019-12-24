@@ -81,3 +81,4 @@ select * from disciplina_natjecanja;
 end
 -- ovo da koristis moras iz safe moda iskljucit ides edit-prefrences-sql editor i onda query .>reconnect na server
 
+SET FOREIGN_KEY_CHECKS = 0;    - ovo je da bi radile procedure
