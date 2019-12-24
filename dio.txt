@@ -1,0 +1,83 @@
+
+ 3 procedure 
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `un`(iime varchar(30)
+,pprezime varchar(30),
+sspol char(12),
+oib char(12),
+datum date,
+datum_p date,
+iznos numeric(12,2),
+stanje char(2),
+imee varchar(300)
+
+)
+BEGIN
+declare zadnjid int default 0;
+
+
+   INSERT INTO natjecatelj (ime, prezime, spol,OIB,datum_rodenja)
+SELECT * FROM (select iime, pprezime,sspol,oib,datum) as t
+WHERE not  EXISTS (
+    SELECT OIB FROM natjecatelj WHERE  OIB="2613223" --ovo radi al imam problem kad zamjenim ove brojveve u npr oib koji unosimo onda ne radi 
+)limit 1 ;
+select last_insert_id() into zadnjid;
+insert into prijava(natjecanje_id,natjecatelj_id,datum_prijave,iznos_kotizacije,stanje_uplate)
+values((select natjecanje_id from natjecanje where naziv_natjecanja=imee),zadnjid ,datum_p,iznos,stanje);
+end
+
+
+1.
+CREATE DEFINER=`root`@`localhost` PROCEDURE `unosii`(
+naziv varchar(45),
+datum date,	
+ulica varchar(30),
+mjesto varchar(10),
+opis varchar(300),
+placanje numeric(12,2),
+disciplinae varchar(15)
+)
+BEGIN 
+ DECLARE l_account_id INT DEFAULT 0;
+    DECLARE zadnjid int default 0;  
+   
+ 
+    START TRANSACTION;
+   select last_insert_id() into zadnjid;
+    INSERT INTO natjecanje(naziv_natjecanja,datum_natjecanja,adresa,grad,opis_natjecanja)
+    VALUES(naziv,datum,ulica,mjesto,opis);
+    
+ 
+    SElect last_insert_id() into l_account_id;
+  
+    IF l_account_id > 0 THEN
+    INSERT INTO disciplina_natjecanja(natjecanje_id,disciplina_id,kotizacija)
+        VALUES (l_account_id,(select disciplina_id from disciplina where disciplinae=naziv_discipline),placanje);
+        -- commit
+        COMMIT;
+     ELSE
+    ROLLBACK;
+    End if;
+    end
+
+
+insert into disciplina(disciplina_id,naziv_discipline)
+values(1,"100m"),(2,"200m"),(3,"500m");
+ako na ovaj naciin treba radit
+
+
+2.. 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `provjera`()
+BEGIN
+DELETE a FROM   disciplina_natjecanja a
+JOIN
+(
+    SELECT   disciplina_id
+    FROM     disciplina_natjecanja
+    GROUP BY disciplina_id
+    HAVING   COUNT(*) <3
+) b ON a.disciplina_id=b.disciplina_id;
+select * from disciplina_natjecanja;
+end
+-- ovo da koristis moras iz safe moda iskljucit ides edit-prefrences-sql editor i onda query .>reconnect na server
+
